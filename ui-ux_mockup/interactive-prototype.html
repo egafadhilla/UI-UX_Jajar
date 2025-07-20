@@ -17,18 +17,41 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-            background: #f9fafb;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(22, 163, 74, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
         }
         
         .app-container {
             max-width: 390px;
             margin: 0 auto;
             min-height: 100vh;
-            background: white;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
         }
         
         .fade-in {
@@ -257,6 +280,264 @@
             from { width: 0%; }
             to { width: 100%; }
         }
+        
+        /* Modern UI Enhancements */
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        
+        .gradient-button {
+            background: linear-gradient(135deg, #16a34a 0%, #10b981 50%, #059669 100%);
+            border: none;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 
+                0 4px 15px 0 rgba(22, 163, 74, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gradient-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .gradient-button:hover:before {
+            left: 100%;
+        }
+        
+        .gradient-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 25px 0 rgba(22, 163, 74, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+        
+        .modern-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 
+                0 10px 25px -5px rgba(0, 0, 0, 0.1),
+                0 4px 6px -2px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .modern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 20px 40px -10px rgba(0, 0, 0, 0.15),
+                0 8px 12px -4px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .product-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.08),
+                0 1px 3px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.12),
+                0 5px 15px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, #16a34a 0%, #10b981 50%, #059669 100%);
+            box-shadow: 
+                0 4px 20px rgba(22, 163, 74, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .search-bar {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(22, 163, 74, 0.1);
+            border-radius: 25px;
+            padding: 14px 20px;
+            font-size: 16px;
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            width: 100%;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #16a34a;
+            box-shadow: 
+                0 0 0 4px rgba(22, 163, 74, 0.1),
+                0 4px 20px rgba(22, 163, 74, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: scale(1.02);
+        }
+        
+        .icon-button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+        
+        .icon-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .status-badge {
+            background: linear-gradient(135deg, #10b981 0%, #16a34a 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+        
+        .price-tag {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        
+        /* Particle Animation */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); }
+            50% { transform: translateY(50vh) scale(1); }
+            100% { transform: translateY(-10vh) scale(0); }
+        }
+        
+        /* Enhanced Gradients */
+        .gradient-text {
+            background: linear-gradient(135deg, #16a34a, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .aurora-bg {
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            animation: aurora 8s ease-in-out infinite;
+        }
+        
+        @keyframes aurora {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+        }
+        
+        /* Modern Input Styles */
+        .modern-input {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 16px 20px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        
+        .modern-input:focus {
+            outline: none;
+            border-color: #16a34a;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 
+                0 0 0 4px rgba(22, 163, 74, 0.1),
+                0 8px 30px rgba(22, 163, 74, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Card Hover Effects */
+        .hover-lift:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Notification styles */
+        .notification-enter {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        
+        .notification-enter-active {
+            transform: translateX(0);
+            opacity: 1;
+            transition: all 0.3s ease-out;
+        }
+        
+        /* Loading enhanced */
+        .modern-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
     </style>
 </head>
 <body>
@@ -282,10 +563,29 @@
 
         // Utility Components
         const LoadingSpinner = () => (
-            <div className="flex justify-center items-center p-4">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
+            <div className="flex justify-center items-center">
+                <div className="modern-spinner"></div>
             </div>
         );
+
+        // Particles Component
+        const Particles = () => {
+            const particles = Array.from({ length: 15 }, (_, i) => (
+                <div
+                    key={i}
+                    className="particle"
+                    style={{
+                        left: `${Math.random() * 100}%`,
+                        width: `${Math.random() * 6 + 2}px`,
+                        height: `${Math.random() * 6 + 2}px`,
+                        animationDelay: `${Math.random() * 6}s`,
+                        animationDuration: `${Math.random() * 3 + 4}s`
+                    }}
+                />
+            ));
+
+            return <div className="particles">{particles}</div>;
+        };
 
         const NotificationBadge = ({ count }) => (
             count > 0 ? (
@@ -343,23 +643,24 @@
             }
 
             return (
-                <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4 fade-in">
-                    <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+                <div className="min-h-screen flex items-center justify-center p-4 fade-in aurora-bg relative overflow-hidden">
+                    <Particles />
+                    <div className="modern-card w-full max-w-md relative z-10">
                         <div className="text-center mb-8">
-                            <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 floating">
+                            <div className="glassmorphism w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 floating">
                                 <Icon name="store" size={40} color="#16a34a" />
                             </div>
-                            <h1 className="text-2xl font-bold text-gray-800 gradient-text">Jelajah Pasar</h1>
-                            <p className="text-gray-600 mt-2">Platform cerdas untuk pasar tradisional</p>
+                            <h1 className="text-3xl font-bold gradient-text mb-2">Jelajah Pasar</h1>
+                            <p className="text-gray-600">Platform cerdas untuk pasar tradisional</p>
                         </div>
                         
-                        <form onSubmit={handleLogin} className="space-y-4 mb-6">
+                        <form onSubmit={handleLogin} className="space-y-6 mb-6">
                             <input 
                                 type="text" 
                                 placeholder="Email atau Username"
                                 value={formData.email}
                                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                                className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                                className="modern-input w-full"
                                 required
                             />
                             <input 
@@ -367,13 +668,13 @@
                                 placeholder="Password"
                                 value={formData.password}
                                 onChange={(e) => setFormData({...formData, password: e.target.value})}
-                                className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                                className="modern-input w-full"
                                 required
                             />
                             <button 
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full bg-green-600 text-white p-4 rounded-xl font-semibold hover:bg-green-700 transition-colors ripple disabled:opacity-50"
+                                className="gradient-button w-full"
                             >
                                 {isLoading ? <LoadingSpinner /> : 'Login'}
                             </button>
@@ -381,7 +682,7 @@
 
                         <button 
                             onClick={handleGuestLogin}
-                            className="w-full bg-gray-200 text-gray-700 p-3 rounded-xl font-semibold hover:bg-gray-300 transition-colors mb-4"
+                            className="glassmorphism w-full text-gray-700 p-4 rounded-xl font-semibold hover:bg-white/30 transition-all mb-4"
                         >
                             Lanjutkan sebagai Tamu
                         </button>
@@ -422,53 +723,53 @@
             return (
                 <div className="pb-20 fade-in">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-4">
-                        <div className="flex justify-between items-center mb-4">
+                    <div className="header-gradient text-white p-6">
+                        <div className="flex justify-between items-center mb-6">
                             <div>
-                                <h1 className="text-xl font-bold">
+                                <h1 className="text-2xl font-bold">
                                     {isGuest ? 'Selamat Datang, Tamu!' : 'Selamat Datang!'}
                                 </h1>
-                                <p className="text-green-100">Jelajah Pasar Digital</p>
+                                <p className="text-green-100 opacity-90">Jelajah Pasar Digital</p>
                             </div>
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-3 items-center">
                                 <div className="relative">
-                                    <Icon name="bell" size={24} className="cursor-pointer hover:scale-110 transition-transform" />
+                                    <div className="icon-button">
+                                        <Icon name="bell" size={24} className="cursor-pointer" />
+                                    </div>
                                     <NotificationBadge count={notifications} />
                                 </div>
-                                <Icon 
-                                    name="search" 
-                                    size={24} 
-                                    className="cursor-pointer hover:scale-110 transition-transform"
-                                    onClick={() => setShowSearch(!showSearch)}
-                                />
+                                <div className="icon-button" onClick={() => setShowSearch(!showSearch)}>
+                                    <Icon name="search" size={24} className="cursor-pointer" />
+                                </div>
                             </div>
                         </div>
                         
                         {/* Search Bar */}
-                        <div className={`bg-white/10 rounded-xl p-3 flex items-center gap-2 transition-all ${showSearch ? 'opacity-100' : 'opacity-70'}`}>
-                            <Icon name="search" size={20} color="#bbf7d0" />
-                            <input 
-                                type="text" 
-                                placeholder="Cari produk, toko, atau komunitas..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="bg-transparent flex-1 text-white placeholder-green-200 outline-none"
-                            />
-                            <Icon name="bot" size={20} color="#bbf7d0" />
+                        <div className={`transition-all duration-300 ${showSearch ? 'opacity-100 transform scale-100' : 'opacity-80 transform scale-95'}`}>
+                            <div className="relative">
+                                <input 
+                                    type="text" 
+                                    placeholder="Cari produk, toko, atau komunitas..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    className="search-bar pl-12"
+                                />
+                                <Icon name="search" size={20} color="#16a34a" className="absolute left-4 top-1/2 transform -translate-y-1/2" />
+                            </div>
                         </div>
                     </div>
 
-                    <div className="p-4">
+                    <div className="p-6">
                         {/* Guest Mode Notice */}
                         {isGuest && (
-                            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 slide-up">
+                            <div className="glassmorphism rounded-xl p-4 mb-6 slide-up border border-blue-200">
                                 <div className="flex items-center gap-3">
                                     <Icon name="info" size={20} color="#3b82f6" />
                                     <div className="flex-1">
                                         <p className="text-sm text-blue-700 font-semibold">Mode Tamu</p>
                                         <p className="text-xs text-blue-600">Daftar untuk akses fitur lengkap AI Assistant</p>
                                     </div>
-                                    <button className="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs font-semibold">
+                                    <button className="gradient-button px-4 py-2 text-sm">
                                         Daftar
                                     </button>
                                 </div>
@@ -477,13 +778,15 @@
 
                         {/* AI Assistant Card */}
                         {!isGuest && (
-                            <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-4 text-white mb-6 card-hover">
+                            <div className="modern-card" style={{background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)'}}>
                                 <div className="flex items-center gap-3 mb-2">
-                                    <Icon name="bot" size={24} />
-                                    <h3 className="font-bold">AI Market Assistant</h3>
+                                    <div className="glassmorphism w-10 h-10 rounded-full flex items-center justify-center">
+                                        <Icon name="bot" size={20} color="#ffffff" />
+                                    </div>
+                                    <h3 className="font-bold text-white">AI Market Assistant</h3>
                                 </div>
-                                <p className="text-sm mb-3">Dapatkan rekomendasi produk dan analisis harga real-time</p>
-                                <button className="bg-white/20 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-white/30 transition-colors ripple">
+                                <p className="text-sm mb-3 text-white/90">Dapatkan rekomendasi produk dan analisis harga real-time</p>
+                                <button className="glassmorphism px-4 py-2 rounded-lg text-sm font-semibold text-white hover:bg-white/30 transition-colors">
                                     Mulai Chat
                                 </button>
                             </div>
@@ -491,13 +794,17 @@
 
                         {/* Quick Actions */}
                         <div className="grid grid-cols-2 gap-4 mb-6">
-                            <div className="bg-white rounded-xl p-4 shadow-md border card-hover">
-                                <Icon name="trending-up" size={32} color="#16a34a" className="mb-2" />
+                            <div className="modern-card">
+                                <div className="glassmorphism w-12 h-12 rounded-full flex items-center justify-center mb-3">
+                                    <Icon name="trending-up" size={24} color="#16a34a" />
+                                </div>
                                 <h3 className="font-semibold text-gray-800">Tren Pasar</h3>
                                 <p className="text-sm text-gray-600">Analisis harga real-time</p>
                             </div>
-                            <div className="bg-white rounded-xl p-4 shadow-md border card-hover">
-                                <Icon name="message-circle" size={32} color="#3b82f6" className="mb-2" />
+                            <div className="modern-card">
+                                <div className="glassmorphism w-12 h-12 rounded-full flex items-center justify-center mb-3">
+                                    <Icon name="message-circle" size={24} color="#3b82f6" />
+                                </div>
                                 <h3 className="font-semibold text-gray-800">
                                     {isGuest ? 'Lihat Chat' : 'Chat AI'}
                                 </h3>
@@ -509,29 +816,33 @@
 
                         {/* Trending Products */}
                         <div className="mb-6">
-                            <div className="flex justify-between items-center mb-3">
-                                <h2 className="text-lg font-bold text-gray-800">Produk Trending</h2>
-                                <span className="text-sm text-green-600 font-semibold cursor-pointer hover:underline">Lihat Semua</span>
+                            <div className="flex justify-between items-center mb-4">
+                                <h2 className="text-xl font-bold text-gray-800">Produk Trending</h2>
+                                <span className="text-sm text-green-600 font-semibold cursor-pointer hover:underline status-badge">Lihat Semua</span>
                             </div>
-                            <div className="space-y-3">
+                            <div className="space-y-4">
                                 {trendingProducts.map((product, index) => (
-                                    <div key={product.id} className={`bg-white rounded-xl p-4 shadow-md border card-hover chat-bubble`} style={{animationDelay: `${index * 0.1}s`}}>
+                                    <div key={product.id} className={`product-card p-4 chat-bubble`} style={{animationDelay: `${index * 0.1}s`}}>
                                         <div className="flex justify-between items-start">
-                                            <div className="flex gap-3 flex-1">
-                                                <div className="text-2xl">{product.image}</div>
+                                            <div className="flex gap-4 flex-1">
+                                                <div className="glassmorphism w-16 h-16 rounded-xl flex items-center justify-center text-2xl">
+                                                    {product.image}
+                                                </div>
                                                 <div className="flex-1">
-                                                    <h3 className="font-semibold text-gray-800">{product.name}</h3>
-                                                    <p className="text-green-600 font-bold">{product.price}</p>
+                                                    <h3 className="font-semibold text-gray-800 mb-1">{product.name}</h3>
+                                                    <div className="price-tag text-sm mb-1">{product.price}</div>
                                                     <p className="text-sm text-gray-600">{product.seller}</p>
                                                 </div>
                                             </div>
                                             <div className="flex flex-col items-end gap-2">
-                                                <span className={`text-sm font-semibold px-2 py-1 rounded-full ${
-                                                    product.trend.startsWith('+') ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                                                <span className={`status-badge ${
+                                                    product.trend.startsWith('+') ? '' : 'bg-red-100 text-red-600'
                                                 }`}>
                                                     {product.trend}
                                                 </span>
-                                                <Icon name="heart" size={20} color="#9ca3af" className="cursor-pointer hover:scale-110 transition-transform" />
+                                                <div className="glassmorphism w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
+                                                    <Icon name="heart" size={16} color="#9ca3af" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1121,22 +1432,24 @@
             };
 
             return (
-                <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[390px] bg-white border-t border-gray-200 slide-up">
-                    <div className="flex justify-around py-2">
+                <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[390px] bottom-nav slide-up">
+                    <div className="flex justify-around py-3">
                         {navItems.map(item => (
                             <button
                                 key={item.id}
                                 onClick={() => handleNavClick(item.id)}
-                                className={`flex flex-col items-center py-2 px-3 rounded-lg transition-all duration-200 ${
+                                className={`nav-item flex flex-col items-center py-2 px-3 transition-all duration-200 ${
                                     currentPage === item.id 
-                                        ? 'text-green-600 bg-green-50 transform scale-105' 
-                                        : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+                                        ? 'nav-item active transform scale-105' 
+                                        : 'text-gray-600 hover:text-green-600'
                                 }`}
                             >
-                                <Icon name={item.icon} size={20} />
+                                <div className={`${currentPage === item.id ? 'glassmorphism' : ''} w-8 h-8 rounded-full flex items-center justify-center`}>
+                                    <Icon name={item.icon} size={20} />
+                                </div>
                                 <span className="text-xs mt-1 font-medium">{item.label}</span>
                                 {currentPage === item.id && (
-                                    <div className="w-4 h-1 bg-green-600 rounded-full mt-1"></div>
+                                    <div className="w-4 h-1 bg-green-600 rounded-full mt-1 pulse"></div>
                                 )}
                             </button>
                         ))}
