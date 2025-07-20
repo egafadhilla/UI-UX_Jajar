@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jelajah Pasar - Marketplace Digital AI</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f9fafb;
+            overflow-x: hidden;
+        }
+        
+        .app-container {
+            max-width: 390px;
+            margin: 0 auto;
+            min-height: 100vh;
+            background: white;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .ripple:active::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #16a34a, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        .chat-bubble {
+            animation: bubbleIn 0.3s ease-out;
+        }
+        
+        @keyframes bubbleIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8) translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #6b7280;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+        
+        .success-checkmark {
+            animation: checkmark 0.5s ease-in-out;
+        }
+        
+        @keyframes checkmark {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 320px;
+            width: 90%;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8) translateY(-50px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #16a34a, #22c55e);
+            animation: progress 3s ease-out;
+        }
+        
+        @keyframes progress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Icons Component
+        const Icon = ({ name, size = 20, color = "currentColor", className = "" }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, []);
+            
+            return React.createElement('i', {
+                'data-lucide': name,
+                style: { width: size, height: size, color },
+                className: className
+            });
+        };
+
+        // Utility Components
+        const LoadingSpinner = () => (
+            <div className="flex justify-center items-center p-4">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600"></div>
+            </div>
+        );
+
+        const NotificationBadge = ({ count }) => (
+            count > 0 ? (
+                <span className="notification-badge">
+                    {count > 99 ? '99+' : count}
+                </span>
+            ) : null
+        );
+
+        const TypingIndicator = () => (
+            <div className="typing-indicator p-3 bg-gray-100 rounded-xl max-w-xs">
+                <div className="typing-dot"></div>
+                <div className="typing-dot"></div>
+                <div className="typing-dot"></div>
+            </div>
+        );
+
+        // Login Screen Component
+        const LoginScreen = ({ onLogin }) => {
+            const [isLoading, setIsLoading] = useState(false);
+            const [formData, setFormData] = useState({ email: '', password: '' });
+            const [showSuccess, setShowSuccess] = useState(false);
+
+            const handleLogin = async (e) => {
+                e.preventDefault();
+                setIsLoading(true);
+                
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                setIsLoading(false);
+                setShowSuccess(true);
+                
+                setTimeout(() => {
+                    onLogin();
+                }, 1000);
+            };
+
+            const handleGuestLogin = () => {
+                onLogin(true); // true indicates guest mode
+            };
+
+            if (showSuccess) {
+                return (
+                    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4">
+                        <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md text-center">
+                            <div className="success-checkmark mb-4">
+                                <Icon name="check-circle" size={64} color="#16a34a" className="mx-auto" />
+                            </div>
+                            <h2 className="text-xl font-bold text-gray-800 mb-2">Login Berhasil!</h2>
+                            <p className="text-gray-600">Selamat datang di Jelajah Pasar</p>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 flex items-center justify-center p-4 fade-in">
+                    <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+                        <div className="text-center mb-8">
+                            <div className="bg-green-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 floating">
+                                <Icon name="store" size={40} color="#16a34a" />
+                            </div>
+                            <h1 className="text-2xl font-bold text-gray-800 gradient-text">Jelajah Pasar</h1>
+                            <p className="text-gray-600 mt-2">Platform cerdas untuk pasar tradisional</p>
+                        </div>
+                        
+                        <form onSubmit={handleLogin} className="space-y-4 mb-6">
+                            <input 
+                                type="text" 
+                                placeholder="Email atau Username"
+                                value={formData.email}
+                                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                                required
+                            />
+                            <input 
+                                type="password" 
+                                placeholder="Password"
+                                value={formData.password}
+                                onChange={(e) => setFormData({...formData, password: e.target.value})}
+                                className="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                                required
+                            />
+                            <button 
+                                type="submit"
+                                disabled={isLoading}
+                                className="w-full bg-green-600 text-white p-4 rounded-xl font-semibold hover:bg-green-700 transition-colors ripple disabled:opacity-50"
+                            >
+                                {isLoading ? <LoadingSpinner /> : 'Login'}
+                            </button>
+                        </form>
+
+                        <button 
+                            onClick={handleGuestLogin}
+                            className="w-full bg-gray-200 text-gray-700 p-3 rounded-xl font-semibold hover:bg-gray-300 transition-colors mb-4"
+                        >
+                            Lanjutkan sebagai Tamu
+                        </button>
+                        
+                        <div className="text-center">
+                            <p className="text-gray-600">Belum punya akun? 
+                                <span className="text-green-600 font-semibold cursor-pointer hover:underline"> Daftar di sini</span>
+                            </p>
+                        </div>
+                        
+                        <div className="mt-6 p-4 bg-green-50 rounded-xl">
+                            <p className="text-sm text-green-700 font-semibold mb-2">✨ Fitur AI Assistant</p>
+                            <p className="text-xs text-green-600">Dengan masuk, Anda menyetujui Terms & Conditions dan kebijakan AI agent kami</p>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Home Screen Component
+        const HomeScreen = ({ isGuest = false }) => {
+            const [notifications] = useState(3);
+            const [trendingProducts] = useState([
+                { id: 1, name: 'Beras Premium', price: 'Rp 12.000/kg', trend: '+5%', seller: 'Toko Makmur', image: '🌾' },
+                { id: 2, name: 'Cabai Merah', price: 'Rp 35.000/kg', trend: '+12%', seller: 'Pasar Sentral', image: '🌶️' },
+                { id: 3, name: 'Bawang Merah', price: 'Rp 28.000/kg', trend: '-3%', seller: 'Toko Berkah', image: '🧅' }
+            ]);
+
+            const [newsFeed] = useState([
+                { id: 1, title: 'Harga Beras Stabil Minggu Ini', source: 'BeritaPasar.com', time: '2 jam lalu', category: 'market' },
+                { id: 2, title: 'Tips Memilih Sayuran Segar', source: 'AI Market Assistant', time: '4 jam lalu', category: 'tips' },
+                { id: 3, title: 'Prediksi Harga Cabai Bulan Depan', source: 'RSS Feed Ekonomi', time: '6 jam lalu', category: 'prediction' }
+            ]);
+
+            const [searchQuery, setSearchQuery] = useState('');
+            const [showSearch, setShowSearch] = useState(false);
+
+            return (
+                <div className="pb-20 fade-in">
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-4">
+                        <div className="flex justify-between items-center mb-4">
+                            <div>
+                                <h1 className="text-xl font-bold">
+                                    {isGuest ? 'Selamat Datang, Tamu!' : 'Selamat Datang!'}
+                                </h1>
+                                <p className="text-green-100">Jelajah Pasar Digital</p>
+                            </div>
+                            <div className="flex gap-2 items-center">
+                                <div className="relative">
+                                    <Icon name="bell" size={24} className="cursor-pointer hover:scale-110 transition-transform" />
+                                    <NotificationBadge count={notifications} />
+                                </div>
+                                <Icon 
+                                    name="search" 
+                                    size={24} 
+                                    className="cursor-pointer hover:scale-110 transition-transform"
+                                    onClick={() => setShowSearch(!showSearch)}
+                                />
+                            </div>
+                        </div>
+                        
+                        {/* Search Bar */}
+                        <div className={`bg-white/10 rounded-xl p-3 flex items-center gap-2 transition-all ${showSearch ? 'opacity-100' : 'opacity-70'}`}>
+                            <Icon name="search" size={20} color="#bbf7d0" />
+                            <input 
+                                type="text" 
+                                placeholder="Cari produk, toko, atau komunitas..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="bg-transparent flex-1 text-white placeholder-green-200 outline-none"
+                            />
+                            <Icon name="bot" size={20} color="#bbf7d0" />
+                        </div>
+                    </div>
+
+                    <div className="p-4">
+                        {/* Guest Mode Notice */}
+                        {isGuest && (
+                            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 slide-up">
+                                <div className="flex items-center gap-3">
+                                    <Icon name="info" size={20} color="#3b82f6" />
+                                    <div className="flex-1">
+                                        <p className="text-sm text-blue-700 font-semibold">Mode Tamu</p>
+                                        <p className="text-xs text-blue-600">Daftar untuk akses fitur lengkap AI Assistant</p>
+                                    </div>
+                                    <button className="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs font-semibold">
+                                        Daftar
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* AI Assistant Card */}
+                        {!isGuest && (
+                            <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-4 text-white mb-6 card-hover">
+                                <div className="flex items-center gap-3 mb-2">
+                                    <Icon name="bot" size={24} />
+                                    <h3 className="font-bold">AI Market Assistant</h3>
+                                </div>
+                                <p className="text-sm mb-3">Dapatkan rekomendasi produk dan analisis harga real-time</p>
+                                <button className="bg-white/20 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-white/30 transition-colors ripple">
+                                    Mulai Chat
+                                </button>
+                            </div>
+                        )}
+
+                        {/* Quick Actions */}
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                            <div className="bg-white rounded-xl p-4 shadow-md border card-hover">
+                                <Icon name="trending-up" size={32} color="#16a34a" className="mb-2" />
+                                <h3 className="font-semibold text-gray-800">Tren Pasar</h3>
+                                <p className="text-sm text-gray-600">Analisis harga real-time</p>
+                            </div>
+                            <div className="bg-white rounded-xl p-4 shadow-md border card-hover">
+                                <Icon name="message-circle" size={32} color="#3b82f6" className="mb-2" />
+                                <h3 className="font-semibold text-gray-800">
+                                    {isGuest ? 'Lihat Chat' : 'Chat AI'}
+                                </h3>
+                                <p className="text-sm text-gray-600">
+                                    {isGuest ? 'Login untuk chat' : 'Konsultasi dengan penjual'}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Trending Products */}
+                        <div className="mb-6">
+                            <div className="flex justify-between items-center mb-3">
+                                <h2 className="text-lg font-bold text-gray-800">Produk Trending</h2>
+                                <span className="text-sm text-green-600 font-semibold cursor-pointer hover:underline">Lihat Semua</span>
+                            </div>
+                            <div className="space-y-3">
+                                {trendingProducts.map((product, index) => (
+                                    <div key={product.id} className={`bg-white rounded-xl p-4 shadow-md border card-hover chat-bubble`} style={{animationDelay: `${index * 0.1}s`}}>
+                                        <div className="flex justify-between items-start">
+                                            <div className="flex gap-3 flex-1">
+                                                <div className="text-2xl">{product.image}</div>
+                                                <div className="flex-1">
+                                                    <h3 className="font-semibold text-gray-800">{product.name}</h3>
+                                                    <p className="text-green-600 font-bold">{product.price}</p>
+                                                    <p className="text-sm text-gray-600">{product.seller}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex flex-col items-end gap-2">
+                                                <span className={`text-sm font-semibold px-2 py-1 rounded-full ${
+                                                    product.trend.startsWith('+') ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
+                                                }`}>
+                                                    {product.trend}
+                                                </span>
+                                                <Icon name="heart" size={20} color="#9ca3af" className="cursor-pointer hover:scale-110 transition-transform" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* News Feed */}
+                        <div className="mb-6">
+                            <div className="flex justify-between items-center mb-3">
+                                <h2 className="text-lg font-bold text-gray-800">Berita & Update</h2>
+                                <Icon name="rss" size={20} color="#f97316" />
+                            </div>
+                            <div className="space-y-3">
+                                {newsFeed.map((news, index) => (
+                                    <div key={news.id} className={`bg-white rounded-xl p-4 shadow-md border card-hover chat-bubble`} style={{animationDelay: `${index * 0.15}s`}}>
+                                        <div className="flex items-start gap-3">
+                                            <div className={`w-2 h-2 rounded-full mt-2 ${
+                                                news.category === 'market' ? 'bg-green-500' :
+                                                news.category === 'tips' ? 'bg-blue-500' : 'bg-purple-500'
+                                            }`}></div>
+                                            <div className="flex-1">
+                                                <h3 className="font-semibold text-gray-800 mb-1">{news.title}</h3>
+                                                <div className="flex justify-between items-center">
+                                                    <p className="text-sm text-gray-600">{news.source}</p>
+                                                    <p className="text-xs text-gray-400">{news.time}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Chat AI Screen Component
+        const ChatScreen = ({ isGuest = false }) => {
+            const [messages, setMessages] = useState([
+                {
+                    id: 1,
+                    type: 'ai',
+                    content: 'Halo! Saya AI assistant Anda. Saya dapat membantu Anda dengan:',
+                    features: [
+                        '• Analisis harga pasar',
+                        '• Rekomendasi produk',
+                        '• Prediksi trend',
+                        '• Koneksi dengan penjual'
+                    ]
+                }
+            ]);
+            const [inputText, setInputText] = useState('');
+            const [isTyping, setIsTyping] = useState(false);
+            const messagesEndRef = useRef(null);
+
+            const scrollToBottom = () => {
+                messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+            };
+
+            useEffect(scrollToBottom, [messages]);
+
+            const sendMessage = async () => {
+                if (!inputText.trim()) return;
+                if (isGuest) {
+                    alert('Silakan login untuk menggunakan AI Assistant');
+                    return;
+                }
+
+                const userMessage = {
+                    id: Date.now(),
+                    type: 'user',
+                    content: inputText
+                };
+
+                setMessages(prev => [...prev, userMessage]);
+                setInputText('');
+                setIsTyping(true);
+
+                // Simulate AI response
+                setTimeout(() => {
+                    setIsTyping(false);
+                    const aiResponse = {
+                        id: Date.now() + 1,
+                        type: 'ai',
+                        content: generateAIResponse(inputText)
+                    };
+                    setMessages(prev => [...prev, aiResponse]);
+                }, 2000);
+            };
+
+            const generateAIResponse = (input) => {
+                const responses = {
+                    'harga': 'Berdasarkan data RSS feed dan analisis AI, harga cabai minggu depan diprediksi naik 8-10% karena faktor cuaca dan permintaan tinggi.',
+                    'cabai': 'Harga cabai saat ini Rp 35.000/kg dengan trend naik 12%. Rekomendasi: beli dalam 2-3 hari ke depan sebelum kenaikan lebih lanjut.',
+                    'pasar': 'Pasar terdekat dengan harga terbaik: Pasar Sentral (2.3km), Pasar Malang (3.1km). Keduanya buka 06:00-17:00.',
+                    'default': 'Terima kasih atas pertanyaannya! Saya dapat membantu dengan analisis harga, rekomendasi produk, dan informasi pasar. Ada yang ingin Anda tanyakan?'
+                };
+
+                const key = Object.keys(responses).find(k => input.toLowerCase().includes(k));
+                return responses[key] || responses.default;
+            };
+
+            if (isGuest) {
+                return (
+                    <div className="pb-20 fade-in">
+                        <div className="bg-green-600 text-white p-4">
+                            <h1 className="text-xl font-bold">AI Chat Assistant</h1>
+                            <p className="text-green-100">Powered by N8N & AI Agent</p>
+                        </div>
+                        
+                        <div className="flex-1 flex items-center justify-center p-8">
+                            <div className="text-center">
+                                <Icon name="lock" size={64} color="#9ca3af" className="mx-auto mb-4" />
+                                <h2 className="text-xl font-bold text-gray-800 mb-2">Fitur Terbatas</h2>
+                                <p className="text-gray-600 mb-6">Login untuk mengakses AI Assistant dan fitur chat lengkap</p>
+                                <button className="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold">
+                                    Login Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="pb-20 fade-in flex flex-col h-screen">
+                    <div className="bg-green-600 text-white p-4">
+                        <h1 className="text-xl font-bold">AI Chat Assistant</h1>
+                        <p className="text-green-100">Powered by N8N & AI Agent</p>
+                    </div>
+                    
+                    <div className="flex-1 p-4 overflow-y-auto">
+                        <div className="space-y-4">
+                            {messages.map(message => (
+                                <div key={message.id} className={`chat-bubble ${message.type === 'user' ? 'flex justify-end' : 'flex gap-3'}`}>
+                                    {message.type === 'ai' && (
+                                        <div className="bg-blue-100 p-2 rounded-full flex-shrink-0">
+                                            <Icon name="bot" size={20} color="#3b82f6" />
+                                        </div>
+                                    )}
+                                    <div className={`rounded-xl p-3 max-w-xs ${
+                                        message.type === 'user' 
+                                            ? 'bg-green-600 text-white' 
+                                            : 'bg-gray-100 text-gray-800'
+                                    }`}>
+                                        <p className="text-sm">{message.content}</p>
+                                        {message.features && (
+                                            <ul className="text-sm mt-2 space-y-1">
+                                                {message.features.map((feature, index) => (
+                                                    <li key={index}>{feature}</li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                            
+                            {isTyping && (
+                                <div className="flex gap-3">
+                                    <div className="bg-blue-100 p-2 rounded-full">
+                                        <Icon name="bot" size={20} color="#3b82f6" />
+                                    </div>
+                                    <TypingIndicator />
+                                </div>
+                            )}
+                            <div ref={messagesEndRef} />
+                        </div>
+                    </div>
+                    
+                    <div className="p-4 bg-white border-t">
+                        <div className="flex gap-2 mb-2">
+                            <input 
+                                type="text" 
+                                placeholder="Ketik pesan Anda..."
+                                value={inputText}
+                                onChange={(e) => setInputText(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                                className="flex-1 p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 outline-none"
+                            />
+                            <button 
+                                onClick={sendMessage}
+                                className="bg-green-600 text-white p-3 rounded-xl ripple"
+                            >
+                                <Icon name="send" size={20} />
+                            </button>
+                        </div>
+                        
+                        <div className="flex gap-2">
+                            <button className="bg-blue-500 text-white px-3 py-1 rounded-full text-xs flex items-center gap-1">
+                                <Icon name="phone" size={12} />
+                                WhatsApp
+                            </button>
+                            <button className="bg-blue-400 text-white px-3 py-1 rounded-full text-xs flex items-center gap-1">
+                                <Icon name="message-circle" size={12} />
+                                Telegram
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Telusuri Pasar Screen Component
+        const TelusuriScreen = () => {
+            const [viewMode, setViewMode] = useState('list'); // 'list' or 'map'
+            const [searchQuery, setSearchQuery] = useState('');
+            const [selectedFilter, setSelectedFilter] = useState('all');
+            
+            const markets = [
+                {
+                    id: 1,
+                    name: 'Pasar Malang',
+                    distance: '2.3 km',
+                    rating: 4.5,
+                    reviewCount: 127,
+                    hours: '06:00 - 17:00',
+                    products: 'Sayuran, Buah, Daging',
+                    sellerCount: 150,
+                    image: '🏪',
+                    isOpen: true
+                },
+                {
+                    id: 2,
+                    name: 'Pasar Sentral',
+                    distance: '1.8 km',
+                    rating: 4.7,
+                    reviewCount: 203,
+                    hours: '05:00 - 18:00',
+                    products: 'Bumbu, Rempah, Ikan',
+                    sellerCount: 89,
+                    image: '🏬',
+                    isOpen: true
+                },
+                {
+                    id: 3,
+                    name: 'Pasar Tradisional Batu',
+                    distance: '5.1 km',
+                    rating: 4.2,
+                    reviewCount: 95,
+                    hours: '06:30 - 16:30',
+                    products: 'Buah, Sayuran Organik',
+                    sellerCount: 67,
+                    image: '🛒',
+                    isOpen: false
+                }
+            ];
+
+            const filteredMarkets = markets.filter(market => {
+                const matchesSearch = market.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                    market.products.toLowerCase().includes(searchQuery.toLowerCase());
+                const matchesFilter = selectedFilter === 'all' || 
+                                    (selectedFilter === 'open' && market.isOpen) ||
+                                    (selectedFilter === 'nearby' && parseFloat(market.distance) < 3);
+                return matchesSearch && matchesFilter;
+            });
+
+            return (
+                <div className="pb-20 fade-in">
+                    <div className="bg-green-600 text-white p-4">
+                        <div className="flex justify-between items-center mb-3">
+                            <div>
+                                <h1 className="text-xl font-bold">Telusuri Pasar</h1>
+                                <p className="text-green-100 text-sm">📍 Malang, Jawa Timur</p>
+                            </div>
+                            <div className="flex gap-2">
+                                <button 
+                                    onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
+                                    className="bg-white/20 p-2 rounded-lg"
+                                >
+                                    <Icon name={viewMode === 'list' ? 'map' : 'list'} size={20} />
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div className="bg-white/10 rounded-xl p-3 flex items-center gap-2">
+                            <Icon name="search" size={20} color="#bbf7d0" />
+                            <input 
+                                type="text" 
+                                placeholder="Cari pasar, toko, produk..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="bg-transparent flex-1 text-white placeholder-green-200 outline-none"
+                            />
+                            <Icon name="filter" size={20} color="#bbf7d0" />
+                        </div>
+                    </div>
+
+                    <div className="p-4">
+                        {/* Filters */}
+                        <div className="flex gap-2 mb-4 overflow-x-auto">
+                            {[
+                                { id: 'all', label: 'Semua', icon: 'store' },
+                                { id: 'open', label: 'Buka', icon: 'clock' },
+                                { id: 'nearby', label: 'Terdekat', icon: 'map-pin' }
+                            ].map(filter => (
+                                <button
+                                    key={filter.id}
+                                    onClick={() => setSelectedFilter(filter.id)}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
+                                        selectedFilter === filter.id
+                                            ? 'bg-green-600 text-white'
+                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                    }`}
+                                >
+                                    <Icon name={filter.icon} size={16} />
+                                    {filter.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Map View Placeholder */}
+                        {viewMode === 'map' && (
+                            <div className="bg-gray-100 rounded-xl h-64 flex items-center justify-center mb-4">
+                                <div className="text-center">
+                                    <Icon name="map" size={48} color="#9ca3af" className="mx-auto mb-2" />
+                                    <p className="text-gray-600 font-semibold">Peta Pasar</p>
+                                    <p className="text-gray-500 text-sm">Integrasi Google Maps</p>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Market List */}
+                        <div className="space-y-4">
+                            {filteredMarkets.map((market, index) => (
+                                <div key={market.id} className={`bg-white rounded-xl p-4 shadow-md border card-hover chat-bubble`} 
+                                     style={{animationDelay: `${index * 0.1}s`}}>
+                                    <div className="flex gap-4">
+                                        <div className="text-3xl">{market.image}</div>
+                                        <div className="flex-1">
+                                            <div className="flex justify-between items-start mb-2">
+                                                <h3 className="font-bold text-gray-800">{market.name}</h3>
+                                                <div className="flex gap-1">
+                                                    <Icon name="heart" size={16} color="#9ca3af" className="cursor-pointer hover:scale-110 transition-transform" />
+                                                    <Icon name="bookmark" size={16} color="#9ca3af" className="cursor-pointer hover:scale-110 transition-transform" />
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="space-y-1 text-sm">
+                                                <div className="flex items-center gap-2">
+                                                    <Icon name="map-pin" size={14} color="#6b7280" />
+                                                    <span className="text-gray-600">{market.distance} dari lokasi Anda</span>
+                                                </div>
+                                                
+                                                <div className="flex items-center gap-2">
+                                                    <Icon name="star" size={14} color="#f59e0b" />
+                                                    <span className="text-gray-600">{market.rating} ({market.reviewCount} ulasan)</span>
+                                                </div>
+                                                
+                                                <div className="flex items-center gap-2">
+                                                    <Icon name="clock" size={14} color={market.isOpen ? "#16a34a" : "#ef4444"} />
+                                                    <span className={market.isOpen ? "text-green-600" : "text-red-600"}>
+                                                        {market.hours} {market.isOpen ? '• Buka' : '• Tutup'}
+                                                    </span>
+                                                </div>
+                                                
+                                                <div className="flex items-center gap-2">
+                                                    <Icon name="shopping-bag" size={14} color="#6b7280" />
+                                                    <span className="text-gray-600">{market.products}</span>
+                                                </div>
+                                                
+                                                <div className="flex items-center gap-2">
+                                                    <Icon name="users" size={14} color="#6b7280" />
+                                                    <span className="text-gray-600">{market.sellerCount}+ pedagang</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="flex gap-2 mt-3">
+                                                <button className="bg-green-600 text-white px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 ripple">
+                                                    <Icon name="navigation" size={12} />
+                                                    Navigasi
+                                                </button>
+                                                <button className="bg-blue-600 text-white px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1">
+                                                    <Icon name="info" size={12} />
+                                                    Info
+                                                </button>
+                                                <button className="bg-gray-200 text-gray-700 px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1">
+                                                    <Icon name="user-plus" size={12} />
+                                                    Follow
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {filteredMarkets.length === 0 && (
+                            <div className="text-center py-8">
+                                <Icon name="search-x" size={48} color="#9ca3af" className="mx-auto mb-2" />
+                                <p className="text-gray-600 font-semibold">Tidak ada pasar ditemukan</p>
+                                <p className="text-gray-500 text-sm">Coba ubah kata kunci pencarian atau filter</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // Profile Screen Component
+        const ProfileScreen = ({ isGuest = false }) => {
+            const [showModal, setShowModal] = useState(false);
+            const [selectedFeature, setSelectedFeature] = useState(null);
+
+            const features = [
+                {
+                    id: 'shopping',
+                    icon: 'list',
+                    title: 'Daftar Belanja & To-Do',
+                    status: '5 item pending',
+                    color: '#3b82f6',
+                    description: 'Kelola daftar belanja dan tugas harian Anda'
+                },
+                {
+                    id: 'favorites',
+                    icon: 'bookmark',
+                    title: 'Toko Favorit',
+                    status: '12 toko tersimpan',
+                    color: '#9333ea',
+                    description: 'Toko-toko pilihan yang sering Anda kunjungi'
+                },
+                {
+                    id: 'wishlist',
+                    icon: 'heart',
+                    title: 'Wishlist Produk',
+                    status: '8 produk diminati',
+                    color: '#ef4444',
+                    description: 'Produk yang ingin Anda beli di kemudian hari'
+                },
+                {
+                    id: 'social',
+                    icon: 'users',
+                    title: 'Follower & Following',
+                    status: 'Followers: 45 | Following: 23',
+                    color: '#16a34a',
+                    description: 'Jaringan sosial Anda di komunitas pasar'
+                },
+                {
+                    id: 'settings',
+                    icon: 'settings',
+                    title: 'Pengaturan',
+                    status: 'Kelola akun dan preferensi',
+                    color: '#6b7280',
+                    description: 'Pengaturan aplikasi dan akun pengguna'
+                }
+            ];
+
+            const handleFeatureClick = (feature) => {
+                if (isGuest && ['shopping', 'favorites', 'wishlist', 'social'].includes(feature.id)) {
+                    alert('Silakan login untuk mengakses fitur ini');
+                    return;
+                }
+                setSelectedFeature(feature);
+                setShowModal(true);
+            };
+
+            if (isGuest) {
+                return (
+                    <div className="pb-20 fade-in">
+                        <div className="bg-green-600 text-white p-4">
+                            <h1 className="text-xl font-bold">Profile Tamu</h1>
+                        </div>
+                        
+                        <div className="p-4">
+                            <div className="bg-white rounded-xl p-6 shadow-md border mb-6 text-center">
+                                <div className="bg-gray-100 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <Icon name="user" size={40} color="#6b7280" />
+                                </div>
+                                <h2 className="text-xl font-bold text-gray-800 mb-2">Mode Tamu</h2>
+                                <p className="text-gray-600 mb-4">Login untuk akses fitur lengkap</p>
+                                <button className="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold">
+                                    Login / Daftar
+                                </button>
+                            </div>
+
+                            <div className="space-y-4">
+                                {features.map((feature, index) => (
+                                    <div key={feature.id} className={`bg-white rounded-xl p-4 shadow-md border card-hover chat-bubble ${
+                                        ['shopping', 'favorites', 'wishlist', 'social'].includes(feature.id) ? 'opacity-50' : ''
+                                    }`} style={{animationDelay: `${index * 0.1}s`}}>
+                                        <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleFeatureClick(feature)}>
+                                            <Icon name={feature.icon} size={20} color={feature.color} />
+                                            <div className="flex-1">
+                                                <h3 className="font-semibold text-gray-800">{feature.title}</h3>
+                                                <p className="text-sm text-gray-600">{feature.status}</p>
+                                            </div>
+                                            {['shopping', 'favorites', 'wishlist', 'social'].includes(feature.id) && (
+                                                <Icon name="lock" size={16} color="#9ca3af" />
+                                            )}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="pb-20 fade-in">
+                    <div className="bg-green-600 text-white p-4">
+                        <h1 className="text-xl font-bold">Profile Pengguna</h1>
+                    </div>
+                    
+                    <div className="p-4">
+                        <div className="bg-white rounded-xl p-4 shadow-md border mb-4">
+                            <div className="flex items-center gap-4 mb-4">
+                                <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center">
+                                    <Icon name="user" size={32} color="#16a34a" />
+                                </div>
+                                <div>
+                                    <h2 className="text-xl font-bold">Budi Santoso</h2>
+                                    <p className="text-gray-600">Pedagang Pasar Malang</p>
+                                    <div className="flex gap-4 text-sm mt-1">
+                                        <span className="text-green-600">⭐ 4.8 rating</span>
+                                        <span className="text-blue-600">📅 Member sejak 2023</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            {features.map((feature, index) => (
+                                <div key={feature.id} className={`bg-white rounded-xl p-4 shadow-md border card-hover chat-bubble cursor-pointer`} 
+                                     style={{animationDelay: `${index * 0.1}s`}}
+                                     onClick={() => handleFeatureClick(feature)}>
+                                    <div className="flex items-center gap-3">
+                                        <Icon name={feature.icon} size={20} color={feature.color} />
+                                        <div className="flex-1">
+                                            <h3 className="font-semibold text-gray-800">{feature.title}</h3>
+                                            <p className="text-sm text-gray-600">{feature.status}</p>
+                                        </div>
+                                        <Icon name="chevron-right" size={16} color="#9ca3af" />
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Modal */}
+                    {showModal && selectedFeature && (
+                        <div className="modal-overlay" onClick={() => setShowModal(false)}>
+                            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                                <div className="flex items-center gap-3 mb-4">
+                                    <Icon name={selectedFeature.icon} size={24} color={selectedFeature.color} />
+                                    <h3 className="text-lg font-bold">{selectedFeature.title}</h3>
+                                </div>
+                                <p className="text-gray-600 mb-6">{selectedFeature.description}</p>
+                                <div className="progress-bar mb-4">
+                                    <div className="progress-fill" style={{width: '60%'}}></div>
+                                </div>
+                                <div className="flex gap-2">
+                                    <button 
+                                        onClick={() => setShowModal(false)}
+                                        className="flex-1 bg-gray-200 text-gray-700 py-2 rounded-lg font-semibold"
+                                    >
+                                        Tutup
+                                    </button>
+                                    <button className="flex-1 bg-green-600 text-white py-2 rounded-lg font-semibold">
+                                        Buka Fitur
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // Bottom Navigation Component
+        const BottomNavigation = ({ currentPage, setCurrentPage, isGuest = false }) => {
+            const navItems = [
+                { id: 'home', icon: 'home', label: 'Home' },
+                { id: 'trends', icon: 'trending-up', label: 'Tren' },
+                { id: 'telusuri', icon: 'search', label: 'Telusuri' },
+                { id: 'chat', icon: 'message-circle', label: isGuest ? 'Login' : 'Chat' },
+                { id: 'profile', icon: 'user', label: 'Profile' }
+            ];
+
+            const handleNavClick = (itemId) => {
+                if (isGuest && itemId === 'chat') {
+                    alert('Silakan login untuk mengakses AI Chat');
+                    return;
+                }
+                setCurrentPage(itemId);
+            };
+
+            return (
+                <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[390px] bg-white border-t border-gray-200 slide-up">
+                    <div className="flex justify-around py-2">
+                        {navItems.map(item => (
+                            <button
+                                key={item.id}
+                                onClick={() => handleNavClick(item.id)}
+                                className={`flex flex-col items-center py-2 px-3 rounded-lg transition-all duration-200 ${
+                                    currentPage === item.id 
+                                        ? 'text-green-600 bg-green-50 transform scale-105' 
+                                        : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+                                }`}
+                            >
+                                <Icon name={item.icon} size={20} />
+                                <span className="text-xs mt-1 font-medium">{item.label}</span>
+                                {currentPage === item.id && (
+                                    <div className="w-4 h-1 bg-green-600 rounded-full mt-1"></div>
+                                )}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        // Main App Component
+        const App = () => {
+            const [isLoggedIn, setIsLoggedIn] = useState(false);
+            const [isGuest, setIsGuest] = useState(false);
+            const [currentPage, setCurrentPage] = useState('home');
+
+            const handleLogin = (guestMode = false) => {
+                setIsLoggedIn(true);
+                setIsGuest(guestMode);
+                setCurrentPage('home');
+            };
+
+            const renderPage = () => {
+                switch(currentPage) {
+                    case 'home':
+                        return <HomeScreen isGuest={isGuest} />;
+                    case 'chat':
+                        return <ChatScreen isGuest={isGuest} />;
+                    case 'telusuri':
+                        return <TelusuriScreen />;
+                    case 'profile':
+                        return <ProfileScreen isGuest={isGuest} />;
+                    default:
+                        return <HomeScreen isGuest={isGuest} />;
+                }
+            };
+
+            if (!isLoggedIn) {
+                return <LoginScreen onLogin={handleLogin} />;
+            }
+
+            return (
+                <div className="app-container">
+                    {renderPage()}
+                    <BottomNavigation 
+                        currentPage={currentPage} 
+                        setCurrentPage={setCurrentPage}
+                        isGuest={isGuest}
+                    />
+                </div>
+            );
+        };
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
