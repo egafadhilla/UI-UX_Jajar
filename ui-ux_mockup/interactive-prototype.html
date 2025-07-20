@@ -18,40 +18,19 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f5f5;
             overflow-x: hidden;
             min-height: 100vh;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 60%, rgba(22, 163, 74, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
         }
         
         .app-container {
             max-width: 390px;
             margin: 0 auto;
             min-height: 100vh;
-            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-            box-shadow: 
-                0 25px 50px -12px rgba(0, 0, 0, 0.25),
-                0 0 0 1px rgba(255, 255, 255, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             position: relative;
-            border-radius: 24px;
             overflow: hidden;
-            backdrop-filter: blur(20px);
         }
         
         .fade-in {
@@ -281,12 +260,95 @@
             to { width: 100%; }
         }
         
-        /* Modern UI Enhancements */
-        .glassmorphism {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        /* Clean Card Styles */
+        .clean-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f0f0f0;
+            transition: all 0.2s ease;
+        }
+        
+        .clean-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        /* Simple Input Styles */
+        .simple-input {
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        
+        .simple-input:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+        
+        /* Simple Button */
+        .simple-button {
+            background: #22c55e;
+            border: none;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .simple-button:hover {
+            background: #16a34a;
+            transform: translateY(-1px);
+        }
+        
+        /* Header Styles */
+        .clean-header {
+            background: #22c55e;
+            color: white;
+            padding: 20px;
+        }
+        
+        /* Product List Item */
+        .product-item {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f0f0f0;
+        }
+        
+        /* Navigation */
+        .clean-nav {
+            background: white;
+            border-top: 1px solid #e1e5e9;
+            padding: 8px 0;
+        }
+        
+        .nav-item-clean {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 12px;
+            color: #6b7280;
+            transition: color 0.2s ease;
+        }
+        
+        .nav-item-clean.active {
+            color: #22c55e;
+        }
+        
+        .nav-item-clean:hover {
+            color: #22c55e;
         }
         
         .gradient-button {
@@ -643,24 +705,23 @@
             }
 
             return (
-                <div className="min-h-screen flex items-center justify-center p-4 fade-in aurora-bg relative overflow-hidden">
-                    <Particles />
-                    <div className="modern-card w-full max-w-md relative z-10">
+                <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 fade-in">
+                    <div className="clean-card w-full max-w-md">
                         <div className="text-center mb-8">
-                            <div className="glassmorphism w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 floating">
-                                <Icon name="store" size={40} color="#16a34a" />
+                            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <Icon name="store" size={32} color="#22c55e" />
                             </div>
-                            <h1 className="text-3xl font-bold gradient-text mb-2">Jelajah Pasar</h1>
+                            <h1 className="text-2xl font-bold text-gray-900 mb-2">Pasar Digital AI</h1>
                             <p className="text-gray-600">Platform cerdas untuk pasar tradisional</p>
                         </div>
                         
-                        <form onSubmit={handleLogin} className="space-y-6 mb-6">
+                        <form onSubmit={handleLogin} className="space-y-4 mb-6">
                             <input 
                                 type="text" 
                                 placeholder="Email atau Username"
                                 value={formData.email}
                                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                                className="modern-input w-full"
+                                className="simple-input"
                                 required
                             />
                             <input 
@@ -668,13 +729,13 @@
                                 placeholder="Password"
                                 value={formData.password}
                                 onChange={(e) => setFormData({...formData, password: e.target.value})}
-                                className="modern-input w-full"
+                                className="simple-input"
                                 required
                             />
                             <button 
                                 type="submit"
                                 disabled={isLoading}
-                                className="gradient-button w-full"
+                                className="simple-button w-full"
                             >
                                 {isLoading ? <LoadingSpinner /> : 'Login'}
                             </button>
@@ -682,20 +743,25 @@
 
                         <button 
                             onClick={handleGuestLogin}
-                            className="glassmorphism w-full text-gray-700 p-4 rounded-xl font-semibold hover:bg-white/30 transition-all mb-4"
+                            className="w-full bg-gray-100 text-gray-700 p-3 rounded-lg font-medium hover:bg-gray-200 transition-colors mb-4"
                         >
                             Lanjutkan sebagai Tamu
                         </button>
                         
                         <div className="text-center">
-                            <p className="text-gray-600">Belum punya akun? 
-                                <span className="text-green-600 font-semibold cursor-pointer hover:underline"> Daftar di sini</span>
+                            <p className="text-sm text-gray-600">
+                                Belum punya akun? <span className="text-green-600 font-semibold cursor-pointer hover:underline">Daftar di sini</span>
                             </p>
                         </div>
                         
-                        <div className="mt-6 p-4 bg-green-50 rounded-xl">
-                            <p className="text-sm text-green-700 font-semibold mb-2">✨ Fitur AI Assistant</p>
-                            <p className="text-xs text-green-600">Dengan masuk, Anda menyetujui Terms & Conditions dan kebijakan AI agent kami</p>
+                        <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+                            <div className="flex items-center gap-2 mb-2">
+                                <Icon name="sparkles" size={16} color="#22c55e" />
+                                <span className="text-sm font-semibold text-green-700">Fitur AI Assistant</span>
+                            </div>
+                            <p className="text-xs text-green-600">
+                                Dengan masuk, Anda menyetujui Terms & Conditions dari kebijakan AI agent kami
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -723,92 +789,62 @@
             return (
                 <div className="pb-20 fade-in">
                     {/* Header */}
-                    <div className="header-gradient text-white p-6">
-                        <div className="flex justify-between items-center mb-6">
+                    <div className="clean-header">
+                        <div className="flex justify-between items-center mb-4">
                             <div>
-                                <h1 className="text-2xl font-bold">
-                                    {isGuest ? 'Selamat Datang, Tamu!' : 'Selamat Datang!'}
-                                </h1>
-                                <p className="text-green-100 opacity-90">Jelajah Pasar Digital</p>
+                                <h1 className="text-xl font-bold">Selamat Datang!</h1>
+                                <p className="text-green-100 opacity-90">Pasar Digital AI</p>
                             </div>
                             <div className="flex gap-3 items-center">
                                 <div className="relative">
-                                    <div className="icon-button">
-                                        <Icon name="bell" size={24} className="cursor-pointer" />
-                                    </div>
+                                    <Icon name="bell" size={24} color="white" className="cursor-pointer" />
                                     <NotificationBadge count={notifications} />
                                 </div>
-                                <div className="icon-button" onClick={() => setShowSearch(!showSearch)}>
-                                    <Icon name="search" size={24} className="cursor-pointer" />
-                                </div>
+                                <Icon name="shopping-cart" size={24} color="white" className="cursor-pointer" />
                             </div>
                         </div>
                         
                         {/* Search Bar */}
-                        <div className={`transition-all duration-300 ${showSearch ? 'opacity-100 transform scale-100' : 'opacity-80 transform scale-95'}`}>
-                            <div className="relative">
-                                <input 
-                                    type="text" 
-                                    placeholder="Cari produk, toko, atau komunitas..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="search-bar pl-12"
-                                />
-                                <Icon name="search" size={20} color="#16a34a" className="absolute left-4 top-1/2 transform -translate-y-1/2" />
-                            </div>
+                        <div className="relative">
+                            <input 
+                                type="text" 
+                                placeholder="Cari produk, toko, atau komunitas..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="simple-input pl-10"
+                            />
+                            <Icon name="search" size={20} color="#6b7280" className="absolute left-3 top-1/2 transform -translate-y-1/2" />
                         </div>
                     </div>
 
-                    <div className="p-6">
-                        {/* Guest Mode Notice */}
-                        {isGuest && (
-                            <div className="glassmorphism rounded-xl p-4 mb-6 slide-up border border-blue-200">
-                                <div className="flex items-center gap-3">
-                                    <Icon name="info" size={20} color="#3b82f6" />
-                                    <div className="flex-1">
-                                        <p className="text-sm text-blue-700 font-semibold">Mode Tamu</p>
-                                        <p className="text-xs text-blue-600">Daftar untuk akses fitur lengkap AI Assistant</p>
-                                    </div>
-                                    <button className="gradient-button px-4 py-2 text-sm">
-                                        Daftar
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
+                    <div className="p-4">
                         {/* AI Assistant Card */}
                         {!isGuest && (
-                            <div className="modern-card" style={{background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)'}}>
+                            <div className="clean-card mb-4" style={{background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)'}}>
                                 <div className="flex items-center gap-3 mb-2">
-                                    <div className="glassmorphism w-10 h-10 rounded-full flex items-center justify-center">
-                                        <Icon name="bot" size={20} color="#ffffff" />
-                                    </div>
+                                    <Icon name="bot" size={24} color="white" />
                                     <h3 className="font-bold text-white">AI Market Assistant</h3>
                                 </div>
                                 <p className="text-sm mb-3 text-white/90">Dapatkan rekomendasi produk dan analisis harga real-time</p>
-                                <button className="glassmorphism px-4 py-2 rounded-lg text-sm font-semibold text-white hover:bg-white/30 transition-colors">
+                                <button className="bg-white/20 px-4 py-2 rounded-lg text-sm font-semibold text-white hover:bg-white/30 transition-colors">
                                     Mulai Chat
                                 </button>
                             </div>
                         )}
 
                         {/* Quick Actions */}
-                        <div className="grid grid-cols-2 gap-4 mb-6">
-                            <div className="modern-card">
-                                <div className="glassmorphism w-12 h-12 rounded-full flex items-center justify-center mb-3">
-                                    <Icon name="trending-up" size={24} color="#16a34a" />
-                                </div>
-                                <h3 className="font-semibold text-gray-800">Tren Pasar</h3>
-                                <p className="text-sm text-gray-600">Analisis harga real-time</p>
+                        <div className="grid grid-cols-2 gap-3 mb-6">
+                            <div className="clean-card text-center">
+                                <Icon name="trending-up" size={24} color="#22c55e" className="mx-auto mb-2" />
+                                <h3 className="font-semibold text-gray-800 text-sm">Tren Pasar</h3>
+                                <p className="text-xs text-gray-600">Analisis harga real-time</p>
                             </div>
-                            <div className="modern-card">
-                                <div className="glassmorphism w-12 h-12 rounded-full flex items-center justify-center mb-3">
-                                    <Icon name="message-circle" size={24} color="#3b82f6" />
-                                </div>
-                                <h3 className="font-semibold text-gray-800">
+                            <div className="clean-card text-center">
+                                <Icon name="message-circle" size={24} color="#3b82f6" className="mx-auto mb-2" />
+                                <h3 className="font-semibold text-gray-800 text-sm">
                                     {isGuest ? 'Lihat Chat' : 'Chat AI'}
                                 </h3>
-                                <p className="text-sm text-gray-600">
+                                <p className="text-xs text-gray-600">
                                     {isGuest ? 'Login untuk chat' : 'Konsultasi dengan penjual'}
                                 </p>
                             </div>
@@ -817,32 +853,28 @@
                         {/* Trending Products */}
                         <div className="mb-6">
                             <div className="flex justify-between items-center mb-4">
-                                <h2 className="text-xl font-bold text-gray-800">Produk Trending</h2>
-                                <span className="text-sm text-green-600 font-semibold cursor-pointer hover:underline status-badge">Lihat Semua</span>
+                                <h2 className="text-lg font-bold text-gray-800">Produk Trending</h2>
+                                <span className="text-sm text-green-600 font-semibold cursor-pointer hover:underline">Lihat Semua</span>
                             </div>
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 {trendingProducts.map((product, index) => (
-                                    <div key={product.id} className={`product-card p-4 chat-bubble`} style={{animationDelay: `${index * 0.1}s`}}>
+                                    <div key={product.id} className="product-item">
                                         <div className="flex justify-between items-start">
-                                            <div className="flex gap-4 flex-1">
-                                                <div className="glassmorphism w-16 h-16 rounded-xl flex items-center justify-center text-2xl">
-                                                    {product.image}
-                                                </div>
+                                            <div className="flex gap-3 flex-1">
+                                                <div className="text-2xl">{product.image}</div>
                                                 <div className="flex-1">
-                                                    <h3 className="font-semibold text-gray-800 mb-1">{product.name}</h3>
-                                                    <div className="price-tag text-sm mb-1">{product.price}</div>
+                                                    <h3 className="font-semibold text-gray-800">{product.name}</h3>
+                                                    <p className="text-green-600 font-bold">{product.price}</p>
                                                     <p className="text-sm text-gray-600">{product.seller}</p>
                                                 </div>
                                             </div>
                                             <div className="flex flex-col items-end gap-2">
-                                                <span className={`status-badge ${
-                                                    product.trend.startsWith('+') ? '' : 'bg-red-100 text-red-600'
+                                                <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                                                    product.trend.startsWith('+') ? 'text-green-600' : 'text-red-600'
                                                 }`}>
                                                     {product.trend}
                                                 </span>
-                                                <div className="glassmorphism w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:scale-110 transition-transform">
-                                                    <Icon name="heart" size={16} color="#9ca3af" />
-                                                </div>
+                                                <Icon name="heart" size={16} color="#9ca3af" className="cursor-pointer hover:scale-110 transition-transform" />
                                             </div>
                                         </div>
                                     </div>
@@ -1432,25 +1464,16 @@
             };
 
             return (
-                <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[390px] bottom-nav slide-up">
-                    <div className="flex justify-around py-3">
+                <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[390px] clean-nav">
+                    <div className="flex justify-around py-2">
                         {navItems.map(item => (
                             <button
                                 key={item.id}
                                 onClick={() => handleNavClick(item.id)}
-                                className={`nav-item flex flex-col items-center py-2 px-3 transition-all duration-200 ${
-                                    currentPage === item.id 
-                                        ? 'nav-item active transform scale-105' 
-                                        : 'text-gray-600 hover:text-green-600'
-                                }`}
+                                className={`nav-item-clean ${currentPage === item.id ? 'active' : ''}`}
                             >
-                                <div className={`${currentPage === item.id ? 'glassmorphism' : ''} w-8 h-8 rounded-full flex items-center justify-center`}>
-                                    <Icon name={item.icon} size={20} />
-                                </div>
+                                <Icon name={item.icon} size={20} />
                                 <span className="text-xs mt-1 font-medium">{item.label}</span>
-                                {currentPage === item.id && (
-                                    <div className="w-4 h-1 bg-green-600 rounded-full mt-1 pulse"></div>
-                                )}
                             </button>
                         ))}
                     </div>
